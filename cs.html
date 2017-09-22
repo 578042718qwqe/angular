@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab栏</title>
+    <style>
+        .active {
+            background-color: orange;
+        }
+        .tab-all{ width: 300px; float: left;}
+        .tab-head{ width: 300px; float: left;}
+        .tab-head li{ float: left; width: 33%; text-align: center;}
+        .tab-context{ width: 300px; float: left;}
+    </style>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-animate.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="sda">
+    <ul>
+        <li ng-class=""></li>
+    </ul>
+    <div ng-class="{true:'selected',false:'unselected'}[isSelected]">asdasd</div>
+    <script>
+        var myApp = angular.module('myApp', []);//全局模块
+        myApp.controller("sda",function ctrl($scope) {
+            $scope.isSelected = true;
+        })
+    </script>
+</body>
+</html>
