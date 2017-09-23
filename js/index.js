@@ -17,6 +17,7 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
         }
 });
 
+
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
 routerApp.controller('mouseenter',function ($log,$scope) {
@@ -27,6 +28,22 @@ routerApp.controller('mouseenter',function ($log,$scope) {
 routerApp.controller('myCtrl', function ($scope,addition) {//注入模块一
         $scope.ass = addition.add(5,6);
     });
+routerApp.controller("sss",function ($scope,$http,$log) {//绑定表单并提交
+    $http({
+        method: 'GET',
+        url: 'json/sq.json'
+    }).then(function successCallback(response) {
+        $scope.objects = response.data.compilerOptions.module;
+        $log.log($scope.objects = response.data.compilerOptions.module);
+        $scope.anniu =function () {
+            $scope.object = {};
+            $scope.object =$scope.objects;
+            console.log($scope.object)
+        }
+    }, function errorCallback(response) {
+        // 请求失败执行代码
+    });
+});
 
 routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
     $urlRouterProvider.otherwise('/404');
