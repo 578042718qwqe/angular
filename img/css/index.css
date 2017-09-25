@@ -48,3 +48,5 @@ body {
 .index_li{ width: 500px;}
 .index_li ul{ width:100%;}
 .index_li ul li{ width:20%; float: left; text-align: center; background-color: #44a3dd; margin: 0 10px;}
+.ul-li-objust{ width:250px;}
+.ul-li-objust li{ width:250px; margin-bottom: 10px;}
