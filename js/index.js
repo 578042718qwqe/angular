@@ -36,6 +36,7 @@ routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
     }).then(function successCallback(response) {
         // 成功代码
         $scope.objects2.a = response.data.name.module;
+        $scope.objects2.f = response.data.name.xxk;
         $scope.objects2.h = response.data.name.sourceMap;
         $scope.objects2.g = response.data.name.sex;
     });
