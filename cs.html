@@ -1,30 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>tab栏</title>
-    <style>
-        .active {
-            background-color: orange;
-        }
-        .tab-all{ width: 300px; float: left;}
-        .tab-head{ width: 300px; float: left;}
-        .tab-head li{ float: left; width: 33%; text-align: center;}
-        .tab-context{ width: 300px; float: left;}
-    </style>
-    <script src="js/angular.js"></script>
-    <script src="js/angular-animate.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/jquery.min.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="sda">
-    <ul>
-        <li ng-class=""></li>
-    </ul>
-    <div ng-class="{true:'selected',false:'unselected'}[isSelected]">asdasd</div>
-    <script>
-        var myApp = angular.module('myApp', []);//全局模块
-        myApp.controller("sda",function ctrl($scope) {
-            $scope.isSelected = true;
-        })
-    </script>
+<body>
+<div ng-app="module" ng-controller="ctrl">
+
+    <form method="post" action="ng.php">
+        标题: <input type="text" ng-model="field.title"><br/>
+        点击数: <input type="text" ng-model="field.click"><br/>
+        内容: <input type="text" ng-model="field.content"><br/>
+        <!--将提交的数据获取放到textarea里面-->
+        <textarea name="data"></textarea>
+        <input type="submit">
+    </form>
+</div>
+<script>
+    var m = angular.module('module', []);
+    m.controller('ctrl', ['$scope', function ($scope) {
+        $scope.field = {title: '泠泠', click: 100,content:'泠泠在路上'};
+        $('form').submit(function () {
+            $("[name='data']").val(angular.toJson($scope.field));
+        });
+    }]);
+</script>
 </body>
 </html>

@@ -28,17 +28,16 @@ routerApp.controller('mouseenter',function ($log,$scope) {
 routerApp.controller('myCtrl', function ($scope,addition) {//注入模块一
         $scope.ass = addition.add(5,6);
     });
-routerApp.controller("sss",function ($scope,$http,$log) {//绑定表单并提交
+routerApp.controller("form",function ($scope,$http,$log) {//绑定表单并提交
     $http({
         method: 'GET',
         url: 'json/sq.json'
     }).then(function successCallback(response) {
-        $scope.objects = response.data.compilerOptions.module;
-        $log.log($scope.objects = response.data.compilerOptions.module);
-        $scope.anniu =function () {
-            $scope.object = {};
-            $scope.object =$scope.objects;
-            console.log($scope.object)
+        $scope.objects2 = {};
+        $scope.objects2.title = response.data.name.module;
+        $scope.anniu = function () {
+            $scope.objects = $scope.objects2;
+            console.log($scope.objects)
         }
     }, function errorCallback(response) {
         // 请求失败执行代码
