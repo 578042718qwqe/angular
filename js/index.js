@@ -28,20 +28,20 @@ routerApp.controller('mouseenter',function ($log,$scope) {
 routerApp.controller('myCtrl', function ($scope,addition) {//注入模块一
         $scope.ass = addition.add(5,6);
     });
-routerApp.controller("form",function ($scope,$http,$log) {//绑定表单并提交
-    $http({
-        method: 'GET',
-        url: 'json/sq.json'
-    }).then(function successCallback(response) {
-        $scope.objects2 = {};
-        $scope.objects2.a = response.data.name.module;
-        $scope.anniu = function () {
-            $scope.objects = $scope.objects2;
-            console.log($scope.objects)
-        }
-    }, function errorCallback(response) {
-        // 请求失败执行代码
-    });
+routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
+    $scope.objects2 = {};
+    $scope.anniu = function () {
+        $scope.objects = $scope.objects2;
+        console.log($scope.objects);
+        $http({
+            method: 'GET',
+            url: 'json/sq.json'
+        }).then(function successCallback(response) {
+            // 成功代码
+        }, function errorCallback(response) {
+            // 请求失败执行代码
+        });
+    };
 });
 
 routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
