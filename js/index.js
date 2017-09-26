@@ -34,7 +34,7 @@ routerApp.controller("form",function ($scope,$http,$log) {//绑定表单并提�
         url: 'json/sq.json'
     }).then(function successCallback(response) {
         $scope.objects2 = {};
-        $scope.objects2.title = response.data.name.module;
+        $scope.objects2.a = response.data.name.module;
         $scope.anniu = function () {
             $scope.objects = $scope.objects2;
             console.log($scope.objects)
