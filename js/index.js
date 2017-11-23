@@ -1,5 +1,6 @@
 
-angular.module('common', []).service('addition', function () {//自定义模块1,
+angular.module('common', []).service('addition', function ($rootScope) {//自定义模块1,
+    $rootScope.qq ="88";
     this.add = function (a, b) {
         return a + b;
     }
@@ -9,6 +10,7 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
     $rootScope.data = {
         current: "1" // 1代表张三，2代表李四，3代表王五
     };
+    $rootScope.yy ="666";
     $rootScope.actions =
         {
             setCurrent: function (param) {
@@ -20,13 +22,16 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
 
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
-routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//选项卡
-        $rootScope.names= "";
+routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//设置导航
+        //$rootScope.names= "zz5";
+        var arr = [];
         $scope.dh_show = function (name) {
-           names = name;
-            console.log(names)
+            if(arr.indexOf(name) == -1){
+                arr.push(name);
+                console.log(arr)
+            }
         };
-        //请求数据
+        $rootScope.names = arr;
         $http({//读取导航
             method: 'GET',
             url: 'text/data/menuData.json'
@@ -40,8 +45,7 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//选项卡
         });
 });
 routerApp.controller("dh_name",function ($scope,$rootScope) {
-    $scope.dh_name = "555";
-    console.log("值"+$rootScope.names)
+    //console.log("值"+$rootScope.names)
 });
 routerApp.controller('mouseenter',function ($log,$scope) {
     $scope.mouse = function (index) {
