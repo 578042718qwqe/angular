@@ -22,17 +22,23 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
 
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
-routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//设置导航
+routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
         //$rootScope.names= "zz5";
+         //设置导航
         var arr = [];
-        $scope.dh_show = function (name) {
-            if(arr.indexOf(name) == -1){
-                arr.push(name);
-                console.log(arr)
+        $scope.dh_show = function (name,url) {
+            if(arr.indexOf(url) == "-1"){
+                var arr_s ={
+                    name:name,
+                    url:url
+                };
+                arr.push(arr_s);
             }
         };
         $rootScope.names = arr;
-        $http({//读取导航
+        console.log($rootScope.names)
+         //读取导航
+        $http({
             method: 'GET',
             url: 'text/data/menuData.json'
         }).then(function successCallback(response) {

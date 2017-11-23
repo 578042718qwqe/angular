@@ -39,7 +39,7 @@
                     <a class="" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false">{{data.name}}</a>
                     <ul class="dropdown-menu dh_tab_to" ng-class="{'on':showtimes}" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false">
                         <li class="dropdown-header" ng-repeat="datatwo in data.child" data-title="{{datatwo.name}}">{{datatwo.name}}
-                            <a ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name)">
+                            <a ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name,datatree.url)">
                                 {{datatree.name}}
                             </a>
                         </li>
