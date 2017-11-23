@@ -1,5 +1,5 @@
 <!--左侧导航栏-->
-<div class="col-sm-3 col-md-2 sidebar">
+<!--<div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
         <li class="active"><a href="">首页</a></li>
     </ul>
@@ -14,9 +14,11 @@
         <li><a href="">设置</a></li>
         <li><a href="">帮助</a></li>
     </ul>
-</div>
+</div>-->
 <!--右侧管理控制台-->
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">管理控制台</h1>
+<div class="row" style="margin: 0 1%;">
+    <div ng-controller="dh_name">
+        <h1 class="page-header">{{names}}</h1>
+    </div>
     <div ui-view></div>
 </div>

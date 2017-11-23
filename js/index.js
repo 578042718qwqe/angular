@@ -20,6 +20,29 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
 
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
+routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//选项卡
+        $rootScope.names= "";
+        $scope.dh_show = function (name) {
+           names = name;
+            console.log(names)
+        };
+        //请求数据
+        $http({//读取导航
+            method: 'GET',
+            url: 'text/data/menuData.json'
+        }).then(function successCallback(response) {
+            // 成功代码
+            $scope.shezhi= response.data;
+            //$scope.objects2.a = response.data.name.module;
+            //$scope.objects2.f = response.data.name.xxk;
+            //$scope.objects2.h = response.data.name.sourceMap;
+            //$scope.objects2.g = response.data.name.sex;
+        });
+});
+routerApp.controller("dh_name",function ($scope,$rootScope) {
+    $scope.dh_name = "555";
+    console.log("值"+$rootScope.names)
+});
 routerApp.controller('mouseenter',function ($log,$scope) {
     $scope.mouse = function (index) {
         $log.log(index)
@@ -32,7 +55,7 @@ routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
     $scope.objects2 = {};
     $http({
         method: 'GET',
-        url: 'json/sq.json'
+        url: 'text/data/sq.json'
     }).then(function successCallback(response) {
         // 成功代码
         $scope.objects2.a = response.data.name.module;
@@ -45,7 +68,7 @@ routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
         console.log($scope.objects);
         $http({
             method: 'GET',
-            url: 'json/sq.json'
+            url: 'text/data/sq.json'
         }).then(function successCallback(response) {
             // 成功代码
         }, function errorCallback(response) {

@@ -1,29 +1,71 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html ng-app='myApp'>
 <head>
     <meta charset="UTF-8">
-    <script src="js/angular.min.js"></script>
-    <script src="js/jquery.min.js"></script>
+    <title>路由</title>
+    <style>
+        a{
+            text-decoration:none;
+        }
+    </style>
 </head>
-<body>
-<div ng-app="module" ng-controller="ctrl">
-
-    <form method="post" action="ng.php">
-        标题: <input type="text" ng-model="field.title"><br/>
-        点击数: <input type="text" ng-model="field.click"><br/>
-        内容: <input type="text" ng-model="field.content"><br/>
-        <!--将提交的数据获取放到textarea里面-->
-        <textarea name="data"></textarea>
-        <input type="submit">
-    </form>
+<body ng-controller='show'>
+<div id="wei">
+    <a href="" ng-click="$location.path('main')">首页</a>
+    <a href="" ng-click="$location.path('intro')">公司简介</a>
+    <a href="" ng-click="$location.path('about')">关于</a>
+    <a href="" ng-click="$location.path('contact')">联系我们</a>
 </div>
-<script>
-    var m = angular.module('module', []);
-    m.controller('ctrl', ['$scope', function ($scope) {
-        $scope.field = {title: '泠泠', click: 100,content:'泠泠在路上'};
-        $('form').submit(function () {
-            $("[name='data']").val(angular.toJson($scope.field));
-        });
+<div ng-view></div>
+<script src="//cdn.bootcss.com/angular.js/1.4.9/angular.min.js"></script>
+<script src="//cdn.bootcss.com/angular.js/1.4.9/angular-route.js"></script>
+
+<script type="text/javascript">
+    var app = angular.module('myApp',["ngRoute"]);
+    app.config(["$routeProvider",function($routeProvider){
+        $routeProvider
+            .when("/main",{
+                // template:"<p>首页{{name}}</p>",
+                templateUrl:"main.html",
+                controller:"show"
+            })
+            .when("/intro",{
+                // template:"<p>公司简介{{name}}</p>",
+                templateUrl:"intro.html",
+                controller:"show2"
+            })
+            .when("/about",{
+                // template:"<p>关于{{name}}</p>",
+                templateUrl:"about.html",
+                controller:"show3"
+            })
+            .when("/contact",{
+                // template:"<p>联系我们{{name}}</p>",
+                templateUrl:"contact.html",
+                controller:"show4"
+            })
+            // .otherwise({
+            // 	redirectTo:"/main"
+            // })
+            .otherwise("/main")
+
+    }])
+
+    app.controller('show',['$scope','$location',function($scope,$location){
+        $scope.name = "啦啦啦,我是卖报的小行家1!";
+        $scope.$location =$location;
+    }]);
+    app.controller('show2',['$scope','$location',function($scope,$location){
+        $scope.name = "啦啦啦,我是卖报的小行家2!";
+        $scope.$location =$location;
+    }]);
+    app.controller('show3',['$scope','$location',function($scope,$location){
+        $scope.name = "啦啦啦,我是卖报的小行家3!";
+        $scope.$location =$location;
+    }]);
+    app.controller('show4',['$scope','$location',function($scope,$location){
+        $scope.name = "啦啦啦,我是卖报的小行家4!";
+        $scope.$location =$location;
     }]);
 </script>
 </body>
