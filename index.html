@@ -13,11 +13,12 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="js/angular-animate.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/index.js" charset="gb2312" language="javascript"></script>
     <style type="text/css">
         .dh_tab_to.on{ display: block;}
         .dh_tab_to{ background-color:#FFFFFF;}
         .dh_tab_to li{ background-color:#FFFFFF;}
+        .row li{ cursor: pointer; height: 50px;}
     </style>
 </head>
 <body ng-app="routerApp">
@@ -39,7 +40,7 @@
                     <a class="" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false">{{data.name}}</a>
                     <ul class="dropdown-menu dh_tab_to" ng-class="{'on':showtimes}" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false">
                         <li class="dropdown-header" ng-repeat="datatwo in data.child" data-title="{{datatwo.name}}">{{datatwo.name}}
-                            <a ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name)">
+                            <a ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name,datatree.url)">
                                 {{datatree.name}}
                             </a>
                         </li>
@@ -52,7 +53,6 @@
         </div>
     </div>
 </nav>
-
 <!--自适应布局-->
 <div class="container-fluid">
     <div class="row">

@@ -1,72 +1,32 @@
-<!DOCTYPE html>
-<html ng-app='myApp'>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app='routerApp'>
 <head>
-    <meta charset="UTF-8">
-    <title>路由</title>
-    <style>
-        a{
-            text-decoration:none;
-        }
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="img/css/bootstrap.min.css" rel="stylesheet">
+    <link href="img/css/index.css" rel="stylesheet">
+    <link href="img/css/base.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="js/angular-animate.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <style type="text/css">
+        .dh_tab_to.on{ display: block;}
+        .dh_tab_to{ background-color:#FFFFFF;}
+        .dh_tab_to li{ background-color:#FFFFFF;}
     </style>
 </head>
-<body ng-controller='show'>
-<div id="wei">
-    <a href="" ng-click="$location.path('main')">首页</a>
-    <a href="" ng-click="$location.path('intro')">公司简介</a>
-    <a href="" ng-click="$location.path('about')">关于</a>
-    <a href="" ng-click="$location.path('contact')">联系我们</a>
-</div>
-<div ng-view></div>
-<script src="//cdn.bootcss.com/angular.js/1.4.9/angular.min.js"></script>
-<script src="//cdn.bootcss.com/angular.js/1.4.9/angular-route.js"></script>
+<body>
 
 <script type="text/javascript">
-    var app = angular.module('myApp',["ngRoute"]);
-    app.config(["$routeProvider",function($routeProvider){
-        $routeProvider
-            .when("/main",{
-                // template:"<p>首页{{name}}</p>",
-                templateUrl:"main.html",
-                controller:"show"
-            })
-            .when("/intro",{
-                // template:"<p>公司简介{{name}}</p>",
-                templateUrl:"intro.html",
-                controller:"show2"
-            })
-            .when("/about",{
-                // template:"<p>关于{{name}}</p>",
-                templateUrl:"about.html",
-                controller:"show3"
-            })
-            .when("/contact",{
-                // template:"<p>联系我们{{name}}</p>",
-                templateUrl:"contact.html",
-                controller:"show4"
-            })
-            // .otherwise({
-            // 	redirectTo:"/main"
-            // })
-            .otherwise("/main")
-
-    }])
-
-    app.controller('show',['$scope','$location',function($scope,$location){
-        $scope.name = "啦啦啦,我是卖报的小行家1!";
-        $scope.$location =$location;
-    }]);
-    app.controller('show2',['$scope','$location',function($scope,$location){
-        $scope.name = "啦啦啦,我是卖报的小行家2!";
-        $scope.$location =$location;
-    }]);
-    app.controller('show3',['$scope','$location',function($scope,$location){
-        $scope.name = "啦啦啦,我是卖报的小行家3!";
-        $scope.$location =$location;
-    }]);
-    app.controller('show4',['$scope','$location',function($scope,$location){
-        $scope.name = "啦啦啦,我是卖报的小行家4!";
-        $scope.$location =$location;
-    }]);
+    var objs =[{a:1,b:5},{a:2,b:6}];
+    angular.forEach(objs, function(data){
+        console.log(data.a);
+    });
 </script>
 </body>
 </html>

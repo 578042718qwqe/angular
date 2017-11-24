@@ -1,5 +1,6 @@
 
-angular.module('common', []).service('addition', function () {//自定义模块1,
+angular.module('common', []).service('addition', function ($rootScope) {//自定义模块1,
+    $rootScope.qq ="88";
     this.add = function (a, b) {
         return a + b;
     }
@@ -9,6 +10,7 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
     $rootScope.data = {
         current: "1" // 1代表张三，2代表李四，3代表王五
     };
+    $rootScope.yy ="666";
     $rootScope.actions =
         {
             setCurrent: function (param) {
@@ -20,14 +22,26 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
 
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
-routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//选项卡
-        $rootScope.names= "";
-        $scope.dh_show = function (name) {
-           names = name;
-            console.log(names)
+routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
+        //$rootScope.names= "zz5";
+         //设置导航
+        var arr = [];
+        var arr_indexof =[];
+        $scope.dh_show = function (name,url) {
+            angular.forEach(arr,function (data) {
+                arr_indexof.push(data.name);
+            });
+            if(arr_indexof.indexOf(name) == "-1"){
+                var arr_s ={
+                    name:name,
+                    url:url
+                };
+                arr.push(arr_s);
+            }
         };
-        //请求数据
-        $http({//读取导航
+        $rootScope.names = arr;
+         //读取导航
+        $http({
             method: 'GET',
             url: 'text/data/menuData.json'
         }).then(function successCallback(response) {
@@ -40,8 +54,10 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {//选项卡
         });
 });
 routerApp.controller("dh_name",function ($scope,$rootScope) {
-    $scope.dh_name = "555";
-    console.log("值"+$rootScope.names)
+    //console.log("值"+$rootScope.names)
+    $scope.dh_close = function (index,$log) {
+        $log.log(index)
+    };
 });
 routerApp.controller('mouseenter',function ($log,$scope) {
     $scope.mouse = function (index) {
