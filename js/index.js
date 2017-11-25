@@ -39,13 +39,14 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
             angular.forEach(arr,function (data) {
                 arr_indexof.push(data.name);
             });
-            if(arr_indexof.indexOf(name) == "-1"){
+            if(arr_indexof.indexOf(name) == "-1"){//考虑双向数据绑定
                 var arr_s ={
                     name:name,
                     url:url
                 };
                 arr.push(arr_s);
             }
+            console.log(arr);
         };
         $rootScope.names = arr;
          //读取导航
@@ -65,6 +66,9 @@ routerApp.controller("dh_name",function ($scope,$rootScope) {
     //console.log("值"+$rootScope.names)
     $scope.dh_close = function (event) {
         console.log($(event.target).attr('data'));
+        var key = $(event.target).attr('data');
+        $rootScope.names.splice(key,1);
+        console.log($rootScope.names)
     };
 });
 routerApp.controller('mouseenter',function ($log,$scope) {
