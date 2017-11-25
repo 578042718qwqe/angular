@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app='routerApp'>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,19 +15,72 @@
     <script type="text/javascript" src="js/angular-animate.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <style type="text/css">
-        .dh_tab_to.on{ display: block;}
-        .dh_tab_to{ background-color:#FFFFFF;}
-        .dh_tab_to li{ background-color:#FFFFFF;}
+        .expander {
+            border: 1px solid black;
+            width: 250px;
+        }
+
+        .expander>.title {
+            background-color: black;
+            color: white;
+            padding: .1em .3em;
+            cursor: pointer;
+        }
+
+        .expander>.body {
+            padding: .1em .3em;
+        }
     </style>
 </head>
-<body>
+<body ng-app='expanderModule'>
+<div ng-controller="ddd">
+    <input id="dd" type="text" data="1" class="form-control"
+           ng-click="showMenu($event)" ng-model="dept.name" readonly>
 
-<script type="text/javascript">
-    var objs =[{a:1,b:5},{a:2,b:6}];
-    angular.forEach(objs, function(data){
-        console.log(data.a);
+    <div class="treeview-back"
+         style="display:none; position: absolute; z-index: 10000; max-height: 230px;background-color: #ffffff;">
+        <ul id="deptTree" class="ztree" style="margin-top:0; width:260px;"></ul>
+    </div>
+</div>
+<!--<div ng-controller='SomeController'>
+    <expander class='expander' expander-title='title'>
+        {{text}}
+    </expander>
+</div>-->
+
+<script>
+    var expanderModule=angular.module('expanderModule', []);
+    expanderModule.controller("ddd",function ($scope) {
+        $scope.showMenu = function (event) {
+            console.log($(event.target).attr('data'));
+            //$(event.target).next().css({left:15+'px', top:34+'px',display: "block"}).slideDown("fast");
+        }
+    })
+   /* var expanderModule=angular.module('expanderModule', []);
+    expanderModule.directive('expander', function() {
+        return {
+            restrict : 'EA',
+            replace : true,
+            transclude : true,
+            scope : {
+                title : '=expanderTitle'
+            },
+            template : '<div>'
+            + '<div class="title" ng-click="toggle()">{{title}}</div>'
+            + '<div class="body" ng-show="showMe" ng-transclude></div>'
+            + '</div>',
+            link : function(scope, element, attrs) {
+                scope.showMe = false;
+                scope.toggle = function toggle() {
+                    scope.showMe = !scope.showMe;
+                }
+            }
+        }
     });
-    //测试
+    expanderModule.controller('SomeController',function($scope) {
+        $scope.title = '点击展开';
+        $scope.text = '这里是内部的内容。';
+    });*/
 </script>
 </body>
 </html>

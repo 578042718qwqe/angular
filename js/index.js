@@ -18,7 +18,15 @@ angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
             }
         }
 });
-
+//自定义指令
+angular.module('myApp',[])
+ .directive('myHello',function(){
+    return {
+        restrict : 'A',
+        replace : true,
+        template : '<div>hello angular</div>'
+    };
+});
 
 var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
 
@@ -55,8 +63,8 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
 });
 routerApp.controller("dh_name",function ($scope,$rootScope) {
     //console.log("值"+$rootScope.names)
-    $scope.dh_close = function (index,$log) {
-        $log.log(index)
+    $scope.dh_close = function (event) {
+        console.log($(event.target).attr('data'));
     };
 });
 routerApp.controller('mouseenter',function ($log,$scope) {

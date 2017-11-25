@@ -19,7 +19,7 @@
 <div class="row" style="margin: 0 1%;">
     <div ng-controller="dh_name">
         <ul class="row">
-            <li class="col-xs-1 col-md-1" ng-repeat="list in names" ui-sref="{{list.url}}">{{list.name}}<div style="background-color: #2aabd2;" ng-click="dh_close({{$index + 1}})">关闭</div></li>
+            <li class="col-xs-1 col-md-1" ng-repeat="list in names" ui-sref="{{list.url}}">{{list.name}}<div style="background-color: #2aabd2;" data="{{$index}}" ng-click="dh_close($event)">关闭</div></li>
         </ul>
     </div>
     <div ui-view></div>
