@@ -82,13 +82,20 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
         //$scope.objects2.g = response.data.name.sex;
     });
 });
-routerApp.controller("dh_name",function ($scope,$rootScope) {
-    //console.log("值"+$rootScope.names)
-    $scope.dh_close = function (event) {
-        console.log($(event.target).attr('data'));
+routerApp.controller("dh_name",function ($scope,$rootScope,$state) {//导航选项
+    $scope.dh_close = function (event,element) {
         var key = $(event.target).attr('data');
         $rootScope.names.splice(key,1);
-        console.log($rootScope.names)
+        /*$(event.target).parents("li").addClass("active").siblings().removeClass("active");*/
+        var url_go = $(event.target).parents("li").prev().attr("ui-sref");
+        if(url_go){
+            $state.go(url_go);
+        }
+        if(url_go == undefined){
+            //如果不存在向右边取值
+            $state.go("home.list");
+            console.log("不存在")
+        }
     };
 });
 routerApp.controller('mouseenter',function ($log,$scope) {

@@ -14,26 +14,41 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="js/angular-animate.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <style type="text/css"></style>
+    <style>
+        mybutton {
+            display: block;
+            width:50px;
+            height: 30px;
+            border-radius: 20px;
+            border: 1px solid;
+        }
+    </style>
 </head>
-<body ng-app="tab-all">
-    <div ng-controller="tabs">
-        <ul>
-            <li ng-repeat="b in names track by $index">{{b}}</li>
-        </ul>
-    </div>
-    <ui-view></ui-view>
+<body ng-app="Ang">
+<div class="main">
+    <mybutton>1</mybutton>
+    <mybutton>2</mybutton>
+    <mybutton>3</mybutton>
+    <mybutton>4</mybutton>
+</div>
+<script type="text/javascript">
+    ang = angular.module("Ang", []);
 
-    <script type="text/javascript">
-        angular.module("tab-all",[]).controller("tabs",function ($scope,$http) {
-            $scope.names = [
-                'red',
-                'blue',
-                'yellow',
-                'white',
-                'blue'
-            ];
-        })
-    </script>
+    ang.directive("mybutton", function() {
+        var link_func = function(scope, element, attr) {
+            $(element).click(function() {
+                if (scope.ClickedButton) {
+                    $(scope.ClickedButton).css({backgroundColor:"white"});
+                }
+                scope.ClickedButton = element
+                $(element).css({backgroundColor:"red"});
+            })
+        };
+        return {
+            restrict: 'E',
+            link: link_func
+        }
+    })
+</script>
 </body>
 </html>
