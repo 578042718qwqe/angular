@@ -14,73 +14,26 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="js/angular-animate.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <style type="text/css">
-        .expander {
-            border: 1px solid black;
-            width: 250px;
-        }
-
-        .expander>.title {
-            background-color: black;
-            color: white;
-            padding: .1em .3em;
-            cursor: pointer;
-        }
-
-        .expander>.body {
-            padding: .1em .3em;
-        }
-    </style>
+    <style type="text/css"></style>
 </head>
-<body ng-app='expanderModule'>
-<div ng-controller="ddd">
-    <input id="dd" type="text" data="1" class="form-control"
-           ng-click="showMenu($event)" ng-model="dept.name" readonly>
-
-    <div class="treeview-back"
-         style="display:none; position: absolute; z-index: 10000; max-height: 230px;background-color: #ffffff;">
-        <ul id="deptTree" class="ztree" style="margin-top:0; width:260px;"></ul>
+<body ng-app="tab-all">
+    <div ng-controller="tabs">
+        <ul>
+            <li ng-repeat="b in names track by $index">{{b}}</li>
+        </ul>
     </div>
-</div>
-<!--<div ng-controller='SomeController'>
-    <expander class='expander' expander-title='title'>
-        {{text}}
-    </expander>
-</div>-->
+    <ui-view></ui-view>
 
-<script>
-    var expanderModule=angular.module('expanderModule', []);
-    expanderModule.controller("ddd",function ($scope) {
-        $scope.showMenu = function (event) {
-            console.log($(event.target).attr('data'));
-            //$(event.target).next().css({left:15+'px', top:34+'px',display: "block"}).slideDown("fast");
-        }
-    })
-   /* var expanderModule=angular.module('expanderModule', []);
-    expanderModule.directive('expander', function() {
-        return {
-            restrict : 'EA',
-            replace : true,
-            transclude : true,
-            scope : {
-                title : '=expanderTitle'
-            },
-            template : '<div>'
-            + '<div class="title" ng-click="toggle()">{{title}}</div>'
-            + '<div class="body" ng-show="showMe" ng-transclude></div>'
-            + '</div>',
-            link : function(scope, element, attrs) {
-                scope.showMe = false;
-                scope.toggle = function toggle() {
-                    scope.showMe = !scope.showMe;
-                }
-            }
-        }
-    });
-    expanderModule.controller('SomeController',function($scope) {
-        $scope.title = '点击展开';
-        $scope.text = '这里是内部的内容。';
-    });*/
-</script>
+    <script type="text/javascript">
+        angular.module("tab-all",[]).controller("tabs",function ($scope,$http) {
+            $scope.names = [
+                'red',
+                'blue',
+                'yellow',
+                'white',
+                'blue'
+            ];
+        })
+    </script>
 </body>
 </html>
