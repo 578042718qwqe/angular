@@ -5,7 +5,7 @@ angular.module('common', []).service('addition', function ($rootScope) {//自定
     }
 });
 
-angular.module('tab', []).run(function ($rootScope) {//自定义选项卡模块
+angular.module('tabs', []).run(function ($rootScope) {//自定义选项卡模块
     $rootScope.data = {
         current: "1" // 1代表张三，2代表李四，3代表王五
     };
@@ -27,7 +27,15 @@ angular.module('myApp',[])
         };
     });
 
-var routerApp = angular.module('routerApp', ['ui.router','common','tab']);//全局模块
+//编辑表格 模块
+angular.module('addressFormatter', []).filter('address', function () {
+    return function (input) {
+        return input.street + ', ' + input.city + ', ' + input.state + ', ' + input.zip;
+    };
+});
+
+
+var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.grid.edit', 'addressFormatter']);//全局模块
 
 routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     //$rootScope.names= "zz5";
@@ -54,20 +62,6 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
         }
         console.log($scope.arr);
     };
-    // var arr_indexof =[];
-    // $scope.dh_show = function (name,url) {
-    //     angular.forEach(arr,function (data) {
-    //         arr_indexof.push(data.name);
-    //     });
-    //     if(arr_indexof.indexOf(name) == "-1"){//考虑双向数据绑定 //
-    //         var arr_s ={
-    //             name:name,
-    //             url:url
-    //         };
-    //         arr.push(arr_s);
-    //     }
-    //     console.log(arr);
-    // };
     $rootScope.names = $scope.arr;
     //读取导航
     $http({
@@ -103,9 +97,9 @@ routerApp.controller('mouseenter',function ($log,$scope) {
         $log.log(index)
     };
 });
-routerApp.controller('myCtrl', function ($scope,addition) {//注入模块一
+/*routerApp.controller('myCtrl', function ($scope,addition) {//注入模块一
     $scope.ass = addition.add(5,6);
-});
+});*/
 routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
     $scope.objects2 = {};
     $http({
@@ -143,13 +137,21 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
             url: '/list',
             templateUrl: 'templates/list-context.html'
         })
+        .state('home.prompt', {//提示
+            url: '/prompt',
+            templateUrl: 'templates/prompt.html'
+        })
+        .state('home.table', {//表格
+            url: '/table',
+            templateUrl: 'templates/table.html'
+        })
         .state('home.list2', {
             url: '/list2',
             templateUrl: 'templates/list-context2.html'
         })
         .state('home.list3', {
             url: '/list3',
-            templateUrl: 'templates/list-context3.html'
+            templateUrl: 'templates/list-context5.html'
             /*templateUrl: 'templates/partial-home-list.html',
              controller: function($scope) {
              $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
@@ -179,3 +181,125 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
             templateUrl: 'templates/404.html'
         })
 });
+
+//*--------------------------------公用表格模块------------------------------------------//
+routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+    $scope.gridOptions = {  };
+
+    $scope.storeFile = function( gridRow, gridCol, files ) {
+        // ignore all but the first file, it can only select one anyway
+        // set the filename into this column
+        gridRow.entity.filename = files[0].name;
+
+        // read the file and set it into a hidden column, which we may do stuff with later
+        var setFile = function(fileContent){
+            gridRow.entity.file = fileContent.currentTarget.result;
+            // put it on scope so we can display it - you'd probably do something else with it
+            $scope.lastFile = fileContent.currentTarget.result;
+            $scope.$apply();
+        };
+        var reader = new FileReader();
+        reader.onload = setFile;
+        reader.readAsText( files[0] );
+    };
+
+    $scope.gridOptions.columnDefs = [
+        { name: 'id', enableCellEdit: false, width: '10%' },
+        { name: 'name', displayName: 'Name (editable)', width: '20%' },
+        { name: 'age', displayName: 'Age' , type: 'number', width: '10%' },
+        { name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '20%',
+            cellFilter: 'mapGender', editDropdownValueLabel: 'gender', editDropdownOptionsArray: [
+            { id: 1, gender: 'male' },
+            { id: 2, gender: 'female' }
+        ] },
+        { name: 'registered', displayName: 'Registered' , type: 'date', cellFilter: 'date:"yyyy-MM-dd"', width: '20%' },
+        { name: 'address', displayName: 'Address', type: 'object', cellFilter: 'address', width: '30%' },
+        { name: 'address.city', displayName: 'Address (even rows editable)', width: '20%',
+            cellEditableCondition: function($scope){
+                return $scope.rowRenderIndex%2
+            }
+        },
+        { name: 'isActive', displayName: 'Active', type: 'boolean', width: '10%' },
+        { name: 'pet', displayName: 'Pet', width: '20%', editableCellTemplate: 'ui-grid/dropdownEditor',
+            editDropdownRowEntityOptionsArrayPath: 'foo.bar[0].options', editDropdownIdLabel: 'value'
+        },
+        { name: 'status', displayName: 'Status', width: '20%', editableCellTemplate: 'ui-grid/dropdownEditor',
+            cellFilter: 'mapStatus',
+            editDropdownOptionsFunction: function(rowEntity, colDef) {
+                var single;
+                var married = {id: 3, value: 'Married'};
+                if (rowEntity.gender === 1) {
+                    single = {id: 1, value: 'Bachelor'};
+                    return [single, married];
+                } else {
+                    single = {id: 2, value: 'Nubile'};
+                    return $timeout(function() {
+                        return [single, married];
+                    }, 100);
+                }
+            }
+        },
+        { name: 'filename', displayName: 'File', width: '20%', editableCellTemplate: 'ui-grid/fileChooserEditor',
+            editFileChooserCallback: $scope.storeFile }
+    ];
+
+    $scope.msg = {};
+
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+            $scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
+            $scope.$apply();
+        });
+    };
+
+    $http.get('text/data/table.json')
+        .success(function(data) {
+            for(i = 0; i < data.length; i++){
+                data[i].registered = new Date(data[i].registered);
+                data[i].gender = data[i].gender==='male' ? 1 : 2;
+                if (i % 2) {
+                    data[i].pet = 'fish'
+                    data[i].foo = {bar: [{baz: 2, options: [{value: 'fish'}, {value: 'hamster'}]}]}
+                }
+                else {
+                    data[i].pet = 'dog'
+                    data[i].foo = {bar: [{baz: 2, options: [{value: 'dog'}, {value: 'cat'}]}]}
+                }
+            }
+            $scope.gridOptions.data = data;
+        });
+}])
+
+    .filter('mapGender', function() {
+        var genderHash = {
+            1: 'male',
+            2: 'female'
+        };
+
+        return function(input) {
+            if (!input){
+                return '';
+            } else {
+                return genderHash[input];
+            }
+        };
+    })
+
+    .filter('mapStatus', function() {
+        var genderHash = {
+            1: 'Bachelor',
+            2: 'Nubile',
+            3: 'Married'
+        };
+
+        return function(input) {
+            if (!input){
+                return '';
+            } else {
+                return genderHash[input];
+            }
+        };
+    });
+//*--------------------------------公用表格模块end------------------------------------------//
