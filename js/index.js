@@ -137,34 +137,34 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'html/list-1.html'
+            templateUrl: 'templates/list-1.html'
         })
         .state('home.list', {
             url: '/list',
-            templateUrl: 'html/list-context.html'
+            templateUrl: 'templates/list-context.html'
         })
         .state('home.list2', {
             url: '/list2',
-            templateUrl: 'html/list-context2.html'
+            templateUrl: 'templates/list-context2.html'
         })
         .state('home.list3', {
             url: '/list3',
-            templateUrl: 'html/list-context3.html'
-            /*templateUrl: 'html/partial-home-list.html',
+            templateUrl: 'templates/list-context3.html'
+            /*templateUrl: 'templates/partial-home-list.html',
              controller: function($scope) {
              $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
              }*/
         })
         .state('home.list4', {
             url: '/list4',
-            templateUrl: 'html/list-context4.html'
+            templateUrl: 'templates/list-context4.html'
         })
         .state('home.list5', {
             url: '/list5',
-            templateUrl: 'html/list-context5.html'
+            templateUrl: 'templates/list-context5.html'
         })
         .state('about', {
-            url: 'html/about',
+            url: 'templates/about',
             views: {
                 '': { templateUrl: 'partial-about.html' },
                 'columnOne@about': { template: 'Look I am a column!' },
@@ -176,6 +176,6 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
         })
         .state('404', {
             url: '/404',
-            templateUrl: 'html/404.html'
+            templateUrl: 'templates/404.html'
         })
 });
