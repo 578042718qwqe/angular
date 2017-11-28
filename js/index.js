@@ -35,7 +35,7 @@ angular.module('addressFormatter', []).filter('address', function () {
 });
 
 
-var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.grid.edit', 'addressFormatter']);//全局模块
+var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.grid.edit', 'addressFormatter','ui.grid.pagination']);//全局模块
 
 routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     //$rootScope.names= "zz5";
@@ -184,7 +184,9 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
 
 //*--------------------------------公用表格模块------------------------------------------//
 routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
-    $scope.gridOptions = {  };
+    $scope.gridOptions = {
+
+    };
 
     $scope.storeFile = function( gridRow, gridCol, files ) {
         // ignore all but the first file, it can only select one anyway
@@ -202,7 +204,8 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
         reader.onload = setFile;
         reader.readAsText( files[0] );
     };
-
+    $scope.gridOptions.paginationPageSizes = [50, 100, 500];
+    $scope.gridOptions.paginationPageSize = 30;
     $scope.gridOptions.columnDefs = [
         { name: 'id', enableCellEdit: false, width: '10%' },
         { name: 'name', displayName: 'Name (editable)', width: '20%' },
