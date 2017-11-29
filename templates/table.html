@@ -1,10 +1,10 @@
 <div ng-controller="MainCtrl">
-    <strong>Data Length:</strong> {{ gridOptions.data.length | number }}
-    <br>
-    <strong>Last Cell Edited:</strong> {{msg.lastCellEdited}}
-    <br>
+    <!--<strong>Last Cell Edited:</strong> {{msg.lastCellEdited}}
+    <br>-->
+    <div class="btn btn-info" style="margin-bottom: 10px;" ng-click="add_table()">添加</div>
     <div ui-grid="gridOptions" ui-grid-edit class="grid" ui-grid-pagination></div>
-    <br>
-    <div><strong>Last file uploaded:</strong></div>
-    <div>{{lastFile}}</div>
+   <!-- <strong>Data Length:</strong> {{ gridOptions.data.length | number }}
+    <br>-->
+    <!--<div><strong>Last file uploaded:</strong></div>
+    <div>{{lastFile}}</div>-->
 </div>

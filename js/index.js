@@ -40,10 +40,8 @@ var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.
 routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     //$rootScope.names= "zz5";
     //设置导航
+    $scope.isActive = "设置";
     $scope.arr = [];
-
-    console.log("123");
-
     $scope.dh_show = function (name, url) {
         var find = false;
         for(var i = 0; i < $scope.arr.length;i++) {
@@ -184,6 +182,9 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
 
 //*--------------------------------公用表格模块------------------------------------------//
 routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+    $scope.delet =function (index) {
+        return alert("55")
+    };
     $scope.gridOptions = {
 
     };
@@ -207,26 +208,26 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
     $scope.gridOptions.paginationPageSizes = [50, 100, 500];
     $scope.gridOptions.paginationPageSize = 30;
     $scope.gridOptions.columnDefs = [
-        { name: 'id', enableCellEdit: false, width: '10%' },
-        { name: 'name', displayName: 'Name (editable)', width: '20%' },
+        { name: 'id', enableCellEdit: false, width: '5%' },
+        { name: 'name', displayName: 'Name', width: '5%' },
         { name: 'age', displayName: 'Age' , type: 'number', width: '10%' },
-        { name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '20%',
+        { name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '10%',
             cellFilter: 'mapGender', editDropdownValueLabel: 'gender', editDropdownOptionsArray: [
             { id: 1, gender: 'male' },
             { id: 2, gender: 'female' }
         ] },
-        { name: 'registered', displayName: 'Registered' , type: 'date', cellFilter: 'date:"yyyy-MM-dd"', width: '20%' },
-        { name: 'address', displayName: 'Address', type: 'object', cellFilter: 'address', width: '30%' },
-        { name: 'address.city', displayName: 'Address (even rows editable)', width: '20%',
+        { name: 'registered', displayName: 'Registered' , type: 'date', cellFilter: 'date:"yyyy-MM-dd"', width: '10%' },
+        { name: 'address', displayName: 'Address', type: 'object', cellFilter: 'address', width: '10%' },
+        { name: 'address.city', displayName: 'Address (even rows editable)', width: '10%',
             cellEditableCondition: function($scope){
                 return $scope.rowRenderIndex%2
             }
         },
         { name: 'isActive', displayName: 'Active', type: 'boolean', width: '10%' },
-        { name: 'pet', displayName: 'Pet', width: '20%', editableCellTemplate: 'ui-grid/dropdownEditor',
+        { name: 'pet', displayName: 'Pet', width: '10%', editableCellTemplate: 'ui-grid/dropdownEditor',
             editDropdownRowEntityOptionsArrayPath: 'foo.bar[0].options', editDropdownIdLabel: 'value'
         },
-        { name: 'status', displayName: 'Status', width: '20%', editableCellTemplate: 'ui-grid/dropdownEditor',
+        { name: 'status', displayName: 'Status', width: '10%', editableCellTemplate: 'ui-grid/dropdownEditor',
             cellFilter: 'mapStatus',
             editDropdownOptionsFunction: function(rowEntity, colDef) {
                 var single;
@@ -242,10 +243,8 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
                 }
             }
         },
-        { name: 'filename', displayName: 'File', width: '20%', editableCellTemplate: 'ui-grid/fileChooserEditor',
-            editFileChooserCallback: $scope.storeFile }
+        { name: 'filename', displayName: 'File', width: '10%',enableCellEdit: false,cellTemplate : '<a href="" ng-click="delet()">删除{{row.entity.id}}</a>'}
     ];
-
     $scope.msg = {};
 
     $scope.gridOptions.onRegisterApi = function(gridApi){
@@ -272,6 +271,45 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
                 }
             }
             $scope.gridOptions.data = data;
+            $scope.add_table = function () {
+                var data_zi = {
+                    "id": "",
+                    "guid": "",
+                    "isActive": "",
+                    "balance": "",
+                    "picture": "",
+                    "age": "",
+                    "name": "",
+                    "gender": "",
+                    "company": "",
+                    "email": "",
+                    "phone": "",
+                    "address": {
+                        "street": 317,
+                        "city": "Blairstown",
+                        "state": "Maine",
+                        "zip": 390
+                    },
+                    "about": "",
+                    "registered": "",
+                    "friends": [
+                        {
+                            "id": 0,
+                            "name": "Rosanne Barrett"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Nita Chase"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Briggs Stark"
+                        }
+                    ]
+                };
+                $scope.gridOptions.data.unshift(data_zi);
+                console.log($scope.gridOptions);
+            }
         });
 }])
 
