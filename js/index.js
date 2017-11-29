@@ -182,6 +182,7 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
             templateUrl: 'templates/404.html'
         })
 });
+//-----------------------------------弹框事件----------------------------------------------**
 
 //*--------------------------------公用表格模块------------------------------------------//
 routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {

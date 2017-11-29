@@ -8,7 +8,7 @@
 				"name":"系统设置",
 				"img":"images/img/anay.png",
 				"child":[
-					{"name":"权限管理","url":"home.list2","id":"1"},
+					{"name":"权限管理","url":"home.list","id":"1"},
 					{"name":"系统配置","url":"home.list","id":"2"},
 					{"name":"运行监控","url":"home.list3","id":"3"}
 				]
@@ -48,9 +48,9 @@
 				"name":"审核中心",
 				"img":"images/img/anay.png",
 				"child":[
-					{"name":"欢迎页","url":"pages/audit_center/welcome.html?rnd=0.01081757588397192"},
-					{"name":"分组政府查看","url":"pages/drg/drg_gov_view.html?rnd=0.8287808486623933"},
-					{"name":"住院审核——预审","url":"pages/audit_center_order/audit_center_order.html?auditStatus=0&rnd=0.5209860453293278"}
+					{"name":"欢迎页","url":"home.list"},
+					{"name":"分组政府查看","url":"home.list2"},
+					{"name":"住院审核——预审","url":"home.list3"}
 				]
 			},
 
