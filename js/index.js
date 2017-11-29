@@ -84,9 +84,12 @@ routerApp.controller("dh_name",function ($scope,$rootScope,$state) {//导航选�
             $state.go(url_go);
         }
         if(url_go == undefined){
-            //如果不存在向右边取值
-            $state.go("home.list");
-            console.log("不存在")
+            if($(event.target).parents("li").next().attr("ui-sref") != undefined){
+                $state.go($(event.target).parents("li").next().attr("ui-sref"));
+            }else {
+                $state.go("home.list");
+                console.log("不存在")
+            }
         }
     };
 });
