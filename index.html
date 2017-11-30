@@ -49,7 +49,7 @@
                     <!--子菜单-S-->
                     <div id="submenuNavBox1" class="submenu-nav-box" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}">
                         <div class="submenu-nav-content" ng-repeat="datatwo in data.child" >
-                            <h3>{{datatwo.name}}</h3>
+                            <h3><img src="{{datatwo.img}}">{{datatwo.name}}</h3>
                             <span class="J_menuItem" href="html/button.html"   ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name,datatree.url,$event)">
                                 {{datatree.name}}
                             </span>

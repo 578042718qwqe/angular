@@ -6,7 +6,7 @@
 		[
 			{
 				"name":"系统设置",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"权限管理","url":"home.list","id":"1"},
 					{"name":"系统配置","url":"home.list","id":"2"},
@@ -16,7 +16,7 @@
 		
 			{
 				"name":"数据维护",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"标准目录升级","url":"home.list5"},
 					{"name":"医保诊断维护","url":"pages/maintain/dat_diagnose.html?rnd=0.5342684301342409"},
@@ -31,10 +31,10 @@
 		"child":[
 			{
 				"name":"可看页面",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
-					{"name":"提示","url":"home.prompt","id":"4"},
-					{"name":"表格","url":"home.table","id":"5"}
+					{"name":"提示","url":"home.prompt"},
+					{"name":"表格","url":"home.table"}
 				]
 			}
 		]
@@ -46,7 +46,7 @@
 
 			{
 				"name":"审核中心",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"欢迎页","url":"home.list"},
 					{"name":"分组政府查看","url":"home.list2"},
@@ -56,7 +56,7 @@
 
 			{
 				"name":"分析中心",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"分析中心","url":"pages/report.html"}
 				]
@@ -64,7 +64,7 @@
 
 			{
 				"name":"规则设计",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 				{"name":"规则设计","url":"pages/mxdraw/graph.html?rnd=0.8045600583463741"},
 				{"name":"规则管理","url":"pages/maintain/rule_manager.html?rnd=0.21001719371477812"},
@@ -79,7 +79,7 @@
 		"child":[
 			{
 				"name":"监控",
-				"img":"images/img/navx2_1_new.jpg",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"主题监控","url":"pages/spec_config/index.html?rnd=0.5766984645823989"},
 					{"name":"报表分析","url":"pages/spec_report.html?rnd=0.2665449082650799"}
@@ -88,7 +88,7 @@
 
 			{
 				"name":"设计",
-				"img":"images/img/anay.png",
+				"img":"images/img/set.png",
 				"child":[
 					{"name":"图表分析设计器","url":"pages/vat/vat_main.html?rnd=0.1287334911084248"},
 					{"name":"rbase管理工具","url":"pages/rbase/rbase_manager.html?rnd=0.5236042252017401"},
