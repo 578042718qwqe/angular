@@ -43,6 +43,8 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     $scope.isActive = "设置";
     $scope.arr = [];
     $scope.dh_show = function (name, url) {
+        $rootScope.gaoliang = name;
+        $rootScope.isActive = name;
         var find = false;
         for(var i = 0; i < $scope.arr.length;i++) {
             if($scope.arr[i].name == name) {
@@ -75,17 +77,28 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     });
 });
 routerApp.controller("dh_name",function ($scope,$rootScope,$state) {//导航选项
-    $scope.dh_close = function (event,element) {
+    $scope.ss =function (event) {
+        $rootScope.gaoliang = $(event.target).text().trim();
+        $rootScope.isActive = $(event.target).text().trim();
+    };
+    $scope.dh_close = function (event) {
         var key = $(event.target).attr('data');
         $rootScope.names.splice(key,1);
-        /*$(event.target).parents("li").addClass("active").siblings().removeClass("active");*/
         var url_go = $(event.target).parents("li").prev().attr("ui-sref");
+        var url_text = $(event.target).parents("li").prev().text().trim();
+        var url_text_next = $(event.target).parents("li").next().text().trim();
         if(url_go){
             $state.go(url_go);
+            $rootScope.gaoliang = url_text;
+            $rootScope.isActive = url_text;
+            console.log("高亮的是"+url_text)
         }
         if(url_go == undefined){
             if($(event.target).parents("li").next().attr("ui-sref") != undefined){
                 $state.go($(event.target).parents("li").next().attr("ui-sref"));
+                $rootScope.gaoliang = url_text_next;
+                $rootScope.isActive = url_text_next;
+                console.log("高亮的是"+url_text_next)
             }else {
                 $state.go("home.list");
                 console.log("不存在")

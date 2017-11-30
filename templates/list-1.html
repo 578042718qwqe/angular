@@ -1,11 +1,12 @@
 <!--右侧管理控制台-->
-<div class="row" style="margin: 0 1%; margin-top:3px;">
-    <div ng-controller="dh_name">
-        <ul class="row" style=" margin: 0; padding: 0; margin-bottom: 10px; margin-top: 10px; border-bottom: 1px solid #000000">
-            <li class="col-xs-1 col-md-1 dh_name_li" ng-click="ss($event)" ng-class="{'{{gaoliang}}': 'gaoliang', 'name_gaoliang': 'inactive'}[isActive]" ng-repeat="list in names" ui-sref="{{list.url}}">{{list.name}}
-                <div style=" float: right;" data="{{$index}}" ng-click="dh_close($event)"><i class="fa fa-times-circle"></i></div>
+<div class="row">
+    <div ng-controller="dh_name" class="dh_name">
+        <ul>
+            <li class=" dh_name_li" ng-class="{'{{gaoliang}}': 'gaoliang', 'name_gaoliang': 'inactive'}[isActive]" ng-repeat="list in names" ui-sref="{{list.url}}">
+                <div ng-click="ss($event)">{{list.name}}</div>
+                <i data="{{$index}}" ng-click="dh_close($event)" class="fa fa-times-circle"></i>
             </li>
         </ul>
     </div>
-    <div ui-view></div>
+    <div ui-view class="dh_name_view"></div>
 </div>
