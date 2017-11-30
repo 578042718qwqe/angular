@@ -50,3 +50,65 @@ body {
 .index_li ul li{ width:20%; float: left; text-align: center; background-color: #44a3dd; margin: 0 10px;}
 .ul-li-objust{ width:250px;}
 .ul-li-objust li{ width:250px; margin-bottom: 10px;}
+/*导航*/
+.dh_name_li{background-color:#dddddd; text-align: center; padding: 0 10px; border-right: 1px solid #dddddd; line-height: 50px; height: 50px; color: #666666; position: relative;}
+.dh_name_li .fa-times-circle{ position: absolute; top: 2px; right: 2px;}
+.gaoliang{background-color:#44a3dd; color: #ffffff;}
+/*其他*/
+.submenu-nav-box.on{display: block!important;}
+.dh_tab_to.on {
+    display: block;
+}
+
+.dh_tab_to {
+    background-color: #FFFFFF;
+}
+
+.row li {
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.dh_high {
+    text-align: center;
+}
+
+.grid {
+    width: 100%;
+    height: 680px;
+}
+
+.navbar-inverse {
+    background-color: #2D528D;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #2aabd2;
+}
+
+.navbar-brand {
+    padding-top: 8px;
+}
+
+.dh_right {
+    float: right !important;
+}
+
+.navbar-header {
+    width: 10%;
+}
+
+.navbar-nav {
+    width: 80%;
+}
+.dh_tab>li>a{ padding-top:0; padding-bottom: 0; height:50px; line-height:50px;}
+.dropdown-menu{ width: 500px; background-color: #2e6da4;}
+.dh_tab li{ float: left;}
+.dh_tab>li>a{ display: block;}
