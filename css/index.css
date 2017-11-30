@@ -57,6 +57,7 @@ body {
 .dh_name_view{ width:94%; margin-left: 3%; margin-top: 10px; float: left;}
 .dh_name_li{background-color:#fafafa; text-align: center; padding: 0 25px 10px 10px; border-right: 1px solid #dddddd; line-height:41px; height:41px; color: #666666; position: relative; float: left;}
 .dh_name_li .fa-times-circle{ position: absolute; top:14px; right:8px;}
+.dh_name_li div{display: block;width: 100%; float: left;  padding: 0 21px;}
 
 .gaoliang{background-color:#6F8BB8; color: #ffffff;}
 /*其他*/

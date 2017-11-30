@@ -1,11 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <meta charset="UTF-8">
+    <title>基于bootstrap的ACE后台框架</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
@@ -25,37 +22,55 @@
     <script type="text/javascript" src="js/ui-grid-angular/ui-grid.js"></script>
     <!--可编辑表格注入end-->
     <script type="text/javascript" src="js/index.js" language="javascript"></script>
+    <!--导航栏-->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/hds-ace.css" rel="stylesheet">
+    <script type="text/javascript" src="js/nav.js"></script>
+    <!--CSS-->
 </head>
-<body ng-app="routerApp">
-<!--下面是顶部导航栏的代码-->
-<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand"><img src="images/newHDS.jpg" alt=""/></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="dh_tab">
-            <ul class="submenu-nav-box dh_tab">
-                <li ng-repeat="data in shezhi" ng-class="{'{{data.name}}': 'dh_right', 'b': 'inactive'}[isActive]">
-                    <a class="" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}"><img src="{{data.img}}" alt="" width="30" style="margin-right:5px;"/>{{data.name}}</a>
-                    <ul class="dropdown-menu dh_tab_to" ng-class="{'on':showtimes}" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false">
-                        <li class="dropdown-header" ng-repeat="datatwo in data.child" data-title="{{datatwo.name}}">
-                            <div style="color: #ffffff; font-size: 16px; font-weight: bold;">{{datatwo.name}}</div>
-                            <a ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}"
-                               ng-click="dh_show(datatree.name,datatree.url,$event)">
+<body class="full-height-layout" ng-app="routerApp">
+<div class="wrapper">
+    <!--顶部-S-->
+    <div class="header-box" id="headerBox">
+        <!--logo-S-->
+        <span class="logo-box"><img id="littlelogoImg" src="images/newHDS.jpg" alt=""></span>
+        <!--logo-E-->
+        <!--菜单-S-->
+        <div class="nav-box" ng-controller="dh_tab">
+            <ul>
+                <li ng-repeat="data in shezhi" ng-class="{'{{data.name}}': 'dh_right', 'name_l': 'inactive'}[isActive]" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}">
+                    <!--主菜单-S-->
+                    <div class="main-nav">
+                        <em><img src="{{data.img}}"></em>
+                        <span>{{data.name}}</span>
+                        <i class="nav-down-arrow"></i>
+                    </div>
+                    <!--主菜单-E-->
+                    <!--子菜单-S-->
+                    <div id="submenuNavBox1" class="submenu-nav-box" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}">
+                        <div class="submenu-nav-content" ng-repeat="datatwo in data.child" >
+                            <h3>{{datatwo.name}}</h3>
+                            <span class="J_menuItem" href="html/button.html"   ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name,datatree.url,$event)">
                                 {{datatree.name}}
-                            </a>
-                        </li>
-                    </ul>
+                            </span>
+                        </div>
+                    </div>
+                    <!--子菜单-E-->
                 </li>
             </ul>
         </div>
+        <!--菜单-E-->
+
     </div>
-</nav>
-<!--自适应布局-->
+    <!--顶部-E-->
+
+</div>
+<!--view布局-->
 <div class="container-fluid">
     <div class="row">
         <div ui-view></div>
     </div>
 </div>
+
 </body>
 </html>

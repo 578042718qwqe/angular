@@ -1,76 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html ng-app="app">
 <head>
-    <meta charset="UTF-8">
-    <title>基于bootstrap的ACE后台框架</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="js/angular-animate.js"></script>
-    <!--可编辑表格注入-->
-    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
-    <script type="text/javascript" src="js/ui-grid-angular/csv.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/pdfmake.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/vfs_fonts.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/lodash.min.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/jszip.min.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/excel-builder.dist.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script type="text/javascript" src="js/ui-grid-angular/ui-grid.js"></script>
-    <!--可编辑表格注入end-->
-    <script type="text/javascript" src="js/index.js" language="javascript"></script>
-    <!--导航栏-->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/hds-ace.css" rel="stylesheet">
-    <script type="text/javascript" src="js/nav.js"></script>
-    <!--CSS-->
+    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
 </head>
-<body class="full-height-layout" ng-app="routerApp">
-<div class="wrapper">
-    <!--顶部-S-->
-    <div class="header-box" id="headerBox">
-        <!--logo-S-->
-        <span class="logo-box"><img id="littlelogoImg" src="images/newHDS.jpg" alt=""></span>
-        <!--logo-E-->
-        <!--菜单-S-->
-        <div class="nav-box" ng-controller="dh_tab">
-            <ul>
-                <li ng-repeat="data in shezhi" ng-class="{'{{data.name}}': 'dh_right', 'name_l': 'inactive'}[isActive]" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}">
-                    <!--主菜单-S-->
-                    <div class="main-nav">
-                        <em><img src="{{data.img}}"></em>
-                        <span>{{data.name}}</span>
-                        <i class="nav-down-arrow"></i>
-                    </div>
-                    <!--主菜单-E-->
-                    <!--子菜单-S-->
-                    <div id="submenuNavBox1" class="submenu-nav-box" ng-mouseenter="showtimes = true" ng-mouseleave="showtimes = false" ng-class="{'on':showtimes}">
-                        <div class="submenu-nav-content" ng-repeat="datatwo in data.child" >
-                            <h3>{{datatwo.name}}</h3>
-                            <span class="J_menuItem" href="html/button.html"   ng-repeat="datatree in datatwo.child" ui-sref="{{datatree.url}}" ng-click="dh_show(datatree.name,datatree.url,$event)">
-                                {{datatree.name}}
-                            </span>
-                        </div>
-                    </div>
-                    <!--子菜单-E-->
-                </li>
-            </ul>
-        </div>
-        <!--菜单-E-->
-
-    </div>
-    <!--顶部-E-->
-
+<body>
+<div ng-controller="MainCtrl">
+    Try clicking the Add button to add the company column.
+    Try clicking the Remove button to remove the last column.
+    Try clicking the Splice button to insert a column in the middle.
+    <br>
+    <br>
+    <button id="button_add" class="btn" ng-click="add()">Add</button>
+    <button id="button_remove" class="btn" ng-click="remove()">Remove Last</button>
+    <button id="button_splice" class="btn" ng-click="splice()">Splice</button>
+    <button id="button_unsplice" class="btn" ng-click="unsplice()">Remove Middle</button>
+    <button id="button_toggle_visible" class="btn" ng-click="toggleVisible()">Toggle Visible</button>
+    <button id="button_toggle_display_name" class="btn" ng-click="toggleDisplayName()">Toggle Display Name</button>
+    <div id="grid1" ui-grid="gridOptions" class="grid"></div>
 </div>
-<!--view布局-->
-<div class="container-fluid">
-    <div class="row">
-        <div ui-view></div>
-    </div>
-</div>
+<script>
+    var app = angular.module('app', ['ngAnimate', 'ngTouch', 'ui.grid']);
 
+    app.controller('MainCtrl', ['$scope', '$http', 'uiGridConstants', function ($scope, $http, uiGridConstants) {
+        $scope.columns = [{ field: 'name' }, { field: 'gender' }];
+        $scope.gridOptions = {
+            enableSorting: true,
+            columnDefs: $scope.columns,
+            onRegisterApi: function(gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
+
+        $scope.remove = function() {
+            $scope.columns.splice($scope.columns.length-1, 1);
+        }
+</script>
 </body>
 </html>

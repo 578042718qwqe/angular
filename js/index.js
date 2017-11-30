@@ -91,14 +91,12 @@ routerApp.controller("dh_name",function ($scope,$rootScope,$state) {//导航选�
             $state.go(url_go);
             $rootScope.gaoliang = url_text;
             $rootScope.isActive = url_text;
-            console.log("高亮的是"+url_text)
         }
         if(url_go == undefined){
             if($(event.target).parents("li").next().attr("ui-sref") != undefined){
                 $state.go($(event.target).parents("li").next().attr("ui-sref"));
                 $rootScope.gaoliang = url_text_next;
                 $rootScope.isActive = url_text_next;
-                console.log("高亮的是"+url_text_next)
             }else {
                 $state.go("home.list");
                 console.log("不存在")
@@ -200,7 +198,7 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
 //*--------------------------------公用表格模块------------------------------------------//
 routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
     $scope.delet =function (index) {
-        return alert("55")
+        $scope.gridOptions.data.splice(index,1)
     };
     $scope.gridOptions = {
 
@@ -260,10 +258,9 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
                 }
             }
         },
-        { name: 'filename', displayName: 'File', width: '10%',enableCellEdit: false,cellTemplate : '<a href="" ng-click="delet()">删除{{row.entity.id}}</a>'}
+        { name: 'filename', displayName: 'File', width: '10%',enableCellEdit: false, cellTemplate : '<a href="" ng-click="grid.appScope.delet(row.entity);">删除</a>'}
     ];
     $scope.msg = {};
-
     $scope.gridOptions.onRegisterApi = function(gridApi){
         //set gridApi on scope
         $scope.gridApi = gridApi;
