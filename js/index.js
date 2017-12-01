@@ -200,6 +200,11 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
     $scope.delet =function (index) {
         $scope.gridOptions.data.splice(index,1)
     };
+    $scope.searchGrid = function(){
+        $scope.begintime = $("#monthCtrlStart").val();
+        $scope.endtime = $("#monthCtrlEnd").val();
+        console.log($scope.seach,$scope.begintime,$scope.endtime)
+    };
     $scope.gridOptions = {
 
     };
@@ -220,11 +225,11 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
         reader.onload = setFile;
         reader.readAsText( files[0] );
     };
+    $scope.useExternalSorting = false;
     $scope.gridOptions.paginationPageSizes = [50, 100, 500];
     $scope.gridOptions.paginationPageSize = 30;
     $scope.gridOptions.columnDefs = [
-        { name: 'id', enableCellEdit: false, width: '5%' },
-        { name: 'name', displayName: 'Name', width: '5%' },
+        { name: 'name', displayName: 'Name', width: '20%' },
         { name: 'age', displayName: 'Age' , type: 'number', width: '10%' },
         { name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '10%',
             cellFilter: 'mapGender', editDropdownValueLabel: 'gender', editDropdownOptionsArray: [
@@ -232,33 +237,14 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
             { id: 2, gender: 'female' }
         ] },
         { name: 'registered', displayName: 'Registered' , type: 'date', cellFilter: 'date:"yyyy-MM-dd"', width: '10%' },
-        { name: 'address', displayName: 'Address', type: 'object', cellFilter: 'address', width: '10%' },
-        { name: 'address.city', displayName: 'Address (even rows editable)', width: '10%',
+        { name: 'address', displayName: 'Address', type: 'object', cellFilter: 'address', width: '20%' },
+        { name: 'address.city', displayName: 'Address', width: '10%',
             cellEditableCondition: function($scope){
                 return $scope.rowRenderIndex%2
             }
         },
         { name: 'isActive', displayName: 'Active', type: 'boolean', width: '10%' },
-        { name: 'pet', displayName: 'Pet', width: '10%', editableCellTemplate: 'ui-grid/dropdownEditor',
-            editDropdownRowEntityOptionsArrayPath: 'foo.bar[0].options', editDropdownIdLabel: 'value'
-        },
-        { name: 'status', displayName: 'Status', width: '10%', editableCellTemplate: 'ui-grid/dropdownEditor',
-            cellFilter: 'mapStatus',
-            editDropdownOptionsFunction: function(rowEntity, colDef) {
-                var single;
-                var married = {id: 3, value: 'Married'};
-                if (rowEntity.gender === 1) {
-                    single = {id: 1, value: 'Bachelor'};
-                    return [single, married];
-                } else {
-                    single = {id: 2, value: 'Nubile'};
-                    return $timeout(function() {
-                        return [single, married];
-                    }, 100);
-                }
-            }
-        },
-        { name: 'filename', displayName: 'File', width: '10%',enableCellEdit: false, cellTemplate : '<a href="" ng-click="grid.appScope.delet(row.entity);">删除</a>'}
+        { name: 'filename', displayName: 'File', width: '10%',enableCellEdit: false, cellTemplate : '<a class="delet-ng" href="" ng-click="grid.appScope.delet(row.entity);">删除</a>'}
     ];
     $scope.msg = {};
     $scope.gridOptions.onRegisterApi = function(gridApi){
@@ -287,7 +273,6 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
             $scope.gridOptions.data = data;
             $scope.add_table = function () {
                 var data_zi = {
-                    "id": "",
                     "guid": "",
                     "isActive": "",
                     "balance": "",
@@ -322,7 +307,6 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
                     ]
                 };
                 $scope.gridOptions.data.unshift(data_zi);
-                console.log($scope.gridOptions);
             }
         });
 }])

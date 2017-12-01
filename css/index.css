@@ -118,3 +118,7 @@ body {
 .dropdown-menu{ width: 500px; background-color: #2e6da4;}
 .dh_tab li{ float: left;}
 .dh_tab>li>a{ display: block;}
+.delet-ng{display: block; line-height:30px; height:30px; padding-left:6px;}
+.seach_text{ float:left; margin-left: 10px;}
+.seach_text .form-control{width: 150px; float: left;}
+.seach_text .Wdate{ float: left; height: 34px; margin:0 10px; border: 1px silver solid;}
