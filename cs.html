@@ -1,46 +1,49 @@
-<!doctype html>
-<html ng-app="app">
+<!DOCTYPE html>
+<html>
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script type="text/javascript" src="js/ui-grid-angular/ui-grid.js"></script>
-    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="js/angular-chart/angular-chart.js"></script>
 </head>
-<body>
-<div ng-controller="MainCtrl">
-    Try clicking the Add button to add the company column.
-    Try clicking the Remove button to remove the last column.
-    Try clicking the Splice button to insert a column in the middle.
-    <br>
-    <br>
-    <button id="button_add" class="btn" ng-click="add()">Add</button>
-    <button id="button_remove" class="btn" ng-click="remove()">Remove Last</button>
-    <button id="button_splice" class="btn" ng-click="splice()">Splice</button>
-    <button id="button_unsplice" class="btn" ng-click="unsplice()">Remove Middle</button>
-    <button id="button_toggle_visible" class="btn" ng-click="toggleVisible()">Toggle Visible</button>
-    <button id="button_toggle_display_name" class="btn" ng-click="toggleDisplayName()">Toggle Display Name</button>
-    <div id="grid1" ui-grid="gridOptions" class="grid"></div>
-</div>
+<body ng-app="app" ng-controller="LineCtrl">
+<canvas id="line" class="chart chart-line" chart-data="data"
+        chart-labels="labels" chart-series="series" chart-options="options"
+        chart-dataset-override="datasetOverride" chart-click="onClick">
+</canvas>
 <script>
-    var app = angular.module('app', ['ngAnimate', 'ngTouch', 'ui.grid']);
+    angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
 
-    app.controller('MainCtrl', ['$scope', '$http', 'uiGridConstants', function ($scope, $http, uiGridConstants) {
-        $scope.columns = [{ field: 'name' }, { field: 'gender' }];
-        $scope.gridOptions = {
-            enableSorting: true,
-            columnDefs: $scope.columns,
-            onRegisterApi: function(gridApi) {
-                $scope.gridApi = gridApi;
+        $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+        $scope.series = ['Series A', 'Series B'];
+        $scope.data = [
+            [65, 59, 80, 81, 56, 55, 40],
+            [28, 48, 40, 19, 86, 27, 90]
+        ];
+        $scope.onClick = function (points, evt) {
+            console.log(points, evt);
+        };
+        $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+        $scope.options = {
+            scales: {
+                yAxes: [
+                    {
+                        id: 'y-axis-1',
+                        type: 'linear',
+                        display: true,
+                        position: 'left'
+                    },
+                    {
+                        id: 'y-axis-2',
+                        type: 'linear',
+                        display: true,
+                        position: 'right'
+                    }
+                ]
             }
         };
-
-        $scope.remove = function() {
-            $scope.columns.splice($scope.columns.length-1, 1);
-        }
+    });
 </script>
 </body>
 </html>

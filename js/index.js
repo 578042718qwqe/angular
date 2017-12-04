@@ -18,14 +18,18 @@ angular.module('tabs', []).run(function ($rootScope) {//自定义选项卡模块
         }
 });
 //自定义指令
-angular.module('myApp',[])
-    .directive('myHello',function(){
-        return {
-            restrict : 'A',
-            replace : true,
-            template : '<div>hello angular</div>'
-        };
-    });
+/*angular.module('win', []).directive('helloWorld', function() {
+    return {
+        restrict: 'E',
+        template: '<div>弹窗5</div>',
+        replace: true
+    };
+});*/
+angular.module('win', []).service('addition', function ($rootScope) {//自定义模块1,
+    this.pop = function (a) {
+        return  template='<div>弹窗5</div>';
+    }
+});
 
 //编辑表格 模块
 angular.module('addressFormatter', []).filter('address', function () {
@@ -34,9 +38,12 @@ angular.module('addressFormatter', []).filter('address', function () {
     };
 });
 
-
-var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.grid.edit', 'addressFormatter','ui.grid.pagination']);//全局模块
-
+var routerApp = angular.module('routerApp', ['ui.router',"tabs", 'ui.grid', 'ui.grid.edit', 'addressFormatter','ui.grid.pagination',"win"]);//全局模块
+routerApp.controller("dj",function ($scope,addition) {//提示框
+    $scope.dj = function () {
+        swal("Good job!", "You clicked the button!", "success");
+    };
+});
 routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     //$rootScope.names= "zz5";
     //设置导航
@@ -66,7 +73,7 @@ routerApp.controller('dh_tab',function ($scope,$http,$rootScope) {
     //读取导航
     $http({
         method: 'GET',
-        url: 'text/data/menuData.json'
+        url: 'test/data/menuData.json'
     }).then(function successCallback(response) {
         // 成功代码
         $scope.shezhi= response.data;
@@ -116,7 +123,7 @@ routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
     $scope.objects2 = {};
     $http({
         method: 'GET',
-        url: 'text/data/sq.json'
+        url: 'test/data/sq.json'
     }).then(function successCallback(response) {
         // 成功代码
         $scope.objects2.a = response.data.name.module;
@@ -129,7 +136,7 @@ routerApp.controller("form",function ($scope,$http) {//绑定表单并提交
         console.log($scope.objects);
         $http({
             method: 'GET',
-            url: 'text/data/sq.json'
+            url: 'test/data/sq.json'
         }).then(function successCallback(response) {
             // 成功代码
         }, function errorCallback(response) {
@@ -157,9 +164,9 @@ routerApp.config(function($stateProvider,$urlRouterProvider) {//全局路由
             url: '/table',
             templateUrl: 'templates/table.html'
         })
-        .state('home.list2', {
-            url: '/list2',
-            templateUrl: 'templates/list-context2.html'
+        .state('home.chart', {//图表
+            url: '/chart',
+            templateUrl: 'templates/chart.html'
         })
         .state('home.list3', {
             url: '/list3',
@@ -201,9 +208,12 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
         $scope.gridOptions.data.splice(index,1)
     };
     $scope.searchGrid = function(){
-        $scope.begintime = $("#monthCtrlStart").val();
-        $scope.endtime = $("#monthCtrlEnd").val();
-        console.log($scope.seach,$scope.begintime,$scope.endtime)
+        $scope.objseach ={
+
+        };
+        $scope.objseach.begintime = $("#monthCtrlStart").val();
+        $scope.objseach.endtime = $("#monthCtrlEnd").val();
+        console.log($scope.objseach)
     };
     $scope.gridOptions = {
 
@@ -256,7 +266,7 @@ routerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function ($scop
         });
     };
 
-    $http.get('text/data/table.json')
+    $http.get('test/data/table.json')
         .success(function(data) {
             for(i = 0; i < data.length; i++){
                 data[i].registered = new Date(data[i].registered);

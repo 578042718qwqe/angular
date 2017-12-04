@@ -8,9 +8,9 @@
 				"name":"系统设置",
 				"img":"images/img/set.png",
 				"child":[
-					{"name":"权限管理","url":"home.list","id":"1"},
-					{"name":"系统配置","url":"home.list","id":"2"},
-					{"name":"运行监控","url":"home.list3","id":"3"}
+					{"name":"权限管理","url":"home.list"},
+					{"name":"系统配置","url":"home.list"},
+					{"name":"运行监控","url":"home.list3"}
 				]
 			},
 		
@@ -34,7 +34,8 @@
 				"img":"images/img/set.png",
 				"child":[
 					{"name":"提示","url":"home.prompt"},
-					{"name":"表格","url":"home.table"}
+					{"name":"表格","url":"home.table"},
+					{"name":"图表","url":"home.chart"}
 				]
 			}
 		]
